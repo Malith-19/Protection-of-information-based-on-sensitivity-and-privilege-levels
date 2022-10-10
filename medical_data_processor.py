@@ -39,7 +39,7 @@ def read_csv(filename):
 
 # writing a one row data to csv
 def write_csv(filename,data):
-    with open(filename,"a") as file:
+    with open(filename,"a+",newline="") as file:
         csvwritter = csv.writer(file)
         csvwritter.writerow(data)
     
@@ -159,6 +159,9 @@ def add_record():
 
 # getting records using record id
 def get_record_by_id(id):
+    if len(record_details)<id:
+        return []
+    
     return record_details[id-1]
 
 # getting records using patient username
@@ -182,12 +185,14 @@ def filter_record(records,user_privilege):
         
 # function to print the records with the filtering.        
 def show_records(records,user_privilege):
-    print("Here the medical records!")
-    filtered_records = filter_record(records,user_privilege)
-    for record in filtered_records:
-        print(" ".join(record))
-    return
-        
+    if records:
+        print("Here the medical records!")
+        filtered_records = filter_record(records,user_privilege)
+        for record in filtered_records:
+            print(" ".join(record))
+        return
+    else:
+        print("No records found!")      
 # generating action menu for given actions.
 def generate_menu(actions):
     menu ="select a choice from below options.\n"
@@ -195,7 +200,7 @@ def generate_menu(actions):
     i = 0
     for action in actions:
         i += 1
-        menu += str(i)+"- "+action+"\n"
+        menu += str(i)+" - "+action+"\n"
         
     return menu
 
@@ -216,7 +221,10 @@ def do_action(action,username,user_privilege):
     elif action == "view record by id":
         id = int(input("Enter the record ID: "))
         record = get_record_by_id(id)
-        show_records([record],user_privilege)
+        if record:
+            show_records([record],user_privilege)
+        else:
+            show_records(record,user_privilege)
         
     elif action == "add new record":
         add_record()
