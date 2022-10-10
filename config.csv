@@ -1,3 +1,4 @@
+username,password,user_type,user_privilege
 malith,81dc9bdb52d04dc20036dbd8313ed055,patient,patient
 dilshan,81dc9bdb52d04dc20036dbd8313ed055,hospital staff,nurse
 charith,81dc9bdb52d04dc20036dbd8313ed055,patient,patient

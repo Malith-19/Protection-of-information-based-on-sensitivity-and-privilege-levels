@@ -30,10 +30,13 @@ def read_csv(filename):
     data= []
     with open(filename,"r") as file:
         csvreader = csv.reader(file,delimiter=",")
-        
+        i = 0
         for row in csvreader:
+            if i == 0:
+                continue
             if row:
                 data.append(row)
+            i += 1
             
     return data
 
